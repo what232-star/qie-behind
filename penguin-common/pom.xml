@@ -118,6 +118,13 @@
             <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
 
+        <!-- 阿里云OSS -->
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <!-- 不用写version，父工程的dependencyManagement已经统一声明了版本号 -->
+        </dependency>
+
     </dependencies>
 
 </project>

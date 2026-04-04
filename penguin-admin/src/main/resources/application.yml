@@ -78,7 +78,7 @@ spring:
       # 数据库索引
       database: 0
       # 密码
-      password:
+      password: root
       # 连接超时时间
       timeout: 10s
       lettuce:
@@ -145,3 +145,10 @@ xss:
   excludes: /system/notice
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
+
+aliyun:
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    access-key-id: YOUR_ACCESS_KEY_ID
+    access-key-secret: YOUR_ACCESS_KEY_SECRET
+    bucket-name: your-bucket-name

@@ -54,6 +54,11 @@
             <artifactId>penguin-generator</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.penguin</groupId>
+            <artifactId>penguin-mind</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

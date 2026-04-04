@@ -1,0 +1,61 @@
+package com.penguin.mind.service;
+
+import java.util.List;
+import com.penguin.mind.domain.Region;
+
+/**
+ * 区域管理Service接口
+ * 
+ * @author nian
+ * @date 2026-04-04
+ */
+public interface IRegionService 
+{
+    /**
+     * 查询区域管理
+     * 
+     * @param id 区域管理主键
+     * @return 区域管理
+     */
+    public Region selectRegionById(String id);
+
+    /**
+     * 查询区域管理列表
+     * 
+     * @param region 区域管理
+     * @return 区域管理集合
+     */
+    public List<Region> selectRegionList(Region region);
+
+    /**
+     * 新增区域管理
+     * 
+     * @param region 区域管理
+     * @return 结果
+     */
+    public int insertRegion(Region region);
+
+    /**
+     * 修改区域管理
+     * 
+     * @param region 区域管理
+     * @return 结果
+     */
+    public int updateRegion(Region region);
+
+    /**
+     * 批量删除区域管理
+     * 
+     * @param ids 需要删除的区域管理主键集合
+     * @return 结果
+     */
+    public int deleteRegionByIds(String[] ids);
+
+    /**
+     * 删除区域管理信息
+     * 
+     * @param id 区域管理主键
+     * @return 结果
+     */
+    public int deleteRegionById(String id);
+}

@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Objects;
+
+import com.penguin.common.utils.OssUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import com.penguin.common.config.RuoYiConfig;
 import com.penguin.common.constant.Constants;
@@ -21,8 +25,18 @@ import com.penguin.common.utils.uuid.Seq;
  * 
  * @author ruoyi
  */
+
+@Component
 public class FileUploadUtils
 {
+    private static OssUtils ossUtils;
+
+    @Autowired
+    public void setOssUtils(OssUtils ossUtils) {
+        FileUploadUtils.ossUtils = ossUtils;
+    }
+
+
     /**
      * 默认大小 50M
      */
@@ -123,19 +137,20 @@ public class FileUploadUtils
             throws FileSizeLimitExceededException, IOException, FileNameLengthLimitExceededException,
             InvalidExtensionException
     {
+        // 保留原有的文件校验逻辑
         int fileNameLength = Objects.requireNonNull(file.getOriginalFilename()).length();
         if (fileNameLength > FileUploadUtils.DEFAULT_FILE_NAME_LENGTH)
         {
             throw new FileNameLengthLimitExceededException(FileUploadUtils.DEFAULT_FILE_NAME_LENGTH);
         }
-
         assertAllowed(file, allowedExtension);
 
-        String fileName = useCustomNaming ? uuidFilename(file) : extractFilename(file);
-
-        String absPath = getAbsoluteFile(baseDir, fileName).getAbsolutePath();
-        file.transferTo(Paths.get(absPath));
-        return getPathFileName(baseDir, fileName);
+        // 致命修改：直接上传到OSS，返回公网URL，不再存本地
+        try {
+            return ossUtils.uploadFile(file);
+        } catch (Exception e) {
+            throw new IOException("上传OSS失败：" + e.getMessage(), e);
+        }
     }
 
     /**

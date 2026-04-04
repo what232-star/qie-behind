@@ -170,6 +170,20 @@
                 <version>${penguin.version}</version>
             </dependency>
 
+            <!-- 思想管理-->
+            <dependency>
+                <groupId>com.penguin</groupId>
+                <artifactId>penguin-mind</artifactId>
+                <version>${penguin.version}</version>
+            </dependency>
+
+            <!-- 阿里云OSS SDK -->
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>3.18.4</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -180,6 +194,7 @@
         <module>penguin-quartz</module>
         <module>penguin-generator</module>
         <module>penguin-common</module>
+        <module>penguin-mind</module>
     </modules>
     <packaging>pom</packaging>
 

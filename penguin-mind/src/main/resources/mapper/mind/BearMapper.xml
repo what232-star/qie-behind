@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.penguin.mind.mapper.BearMapper">
+    
+    <resultMap type="Bear" id="BearResult">
+        <result property="id"    column="id"    />
+        <result property="bearName"    column="bear_name"    />
+        <result property="contactBear"    column="contact_bear"    />
+        <result property="contactPhone"    column="contact_phone"    />
+        <result property="shareRatio"    column="share_ratio"    />
+        <result property="account"    column="account"    />
+        <result property="password"    column="password"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="dateTime"    column="date_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectBearVo">
+        select id, bear_name, contact_bear, contact_phone, share_ratio, account, password, create_time, date_time, create_by, update_by, remark from tb_bear
+    </sql>
+
+    <select id="selectBearList" parameterType="Bear" resultMap="BearResult">
+        <include refid="selectBearVo"/>
+        <where>  
+            <if test="bearName != null  and bearName != ''"> and bear_name like concat('%', #{bearName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectBearById" parameterType="String" resultMap="BearResult">
+        <include refid="selectBearVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertBear" parameterType="Bear" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_bear
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bearName != null and bearName != ''">bear_name,</if>
+            <if test="contactBear != null and contactBear != ''">contact_bear,</if>
+            <if test="contactPhone != null and contactPhone != ''">contact_phone,</if>
+            <if test="shareRatio != null">share_ratio,</if>
+            <if test="account != null and account != ''">account,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="dateTime != null">date_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bearName != null and bearName != ''">#{bearName},</if>
+            <if test="contactBear != null and contactBear != ''">#{contactBear},</if>
+            <if test="contactPhone != null and contactPhone != ''">#{contactPhone},</if>
+            <if test="shareRatio != null">#{shareRatio},</if>
+            <if test="account != null and account != ''">#{account},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="dateTime != null">#{dateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBear" parameterType="Bear">
+        update tb_bear
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="bearName != null and bearName != ''">bear_name = #{bearName},</if>
+            <if test="contactBear != null and contactBear != ''">contact_bear = #{contactBear},</if>
+            <if test="contactPhone != null and contactPhone != ''">contact_phone = #{contactPhone},</if>
+            <if test="shareRatio != null">share_ratio = #{shareRatio},</if>
+            <if test="account != null and account != ''">account = #{account},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="dateTime != null">date_time = #{dateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBearById" parameterType="String">
+        delete from tb_bear where id = #{id}
+    </delete>
+
+    <delete id="deleteBearByIds" parameterType="String">
+        delete from tb_bear where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
