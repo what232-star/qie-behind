@@ -1,6 +1,9 @@
 package com.penguin.mind.controller;
 
 import java.util.List;
+
+import com.penguin.common.utils.SecurityUtils;
+import com.penguin.mind.domain.vo.BearVo;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +45,8 @@ public class BearController extends BaseController
     public TableDataInfo list(Bear bear)
     {
         startPage();
-        List<Bear> list = bearService.selectBearList(bear);
-        return getDataTable(list);
+        List<BearVo> volist = bearService.selectBearVoList(bear);
+        return getDataTable(volist);
     }
 
     /**
@@ -101,4 +104,22 @@ public class BearController extends BaseController
     {
         return toAjax(bearService.deleteBearByIds(ids));
     }
+
+    /**
+     * 重置密码
+     *
+     *
+     */
+    @PreAuthorize("@ss.hasPermi('mind:bear:edit')")
+    @Log(title = "重置熊熊合作商密码", businessType = BusinessType.UPDATE)
+    @PutMapping("resetPwd/{id}")
+    public AjaxResult resetPwd(@PathVariable String id)//接收参数
+    {
+        Bear bear = new Bear();
+        bear.setId(id);//设置id
+        bear.setPassword(SecurityUtils.encryptPassword("123456"));//设置加密后的初始密码
+        return toAjax(bearService.updateBear(bear));
+
+    }
 }
+

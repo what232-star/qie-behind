@@ -2,6 +2,7 @@ package com.penguin.mind.mapper;
 
 import java.util.List;
 import com.penguin.mind.domain.Node;
+import com.penguin.mind.domain.vo.NodeVo;
 
 /**
  * 点位管理Mapper接口
@@ -58,4 +59,6 @@ public interface NodeMapper
      * @return 结果
      */
     public int deleteNodeByIds(String[] ids);
+
+    public List<NodeVo> selectNodeVoList(Node node);
 }

@@ -19,6 +19,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @author ruoyi
  */
 @SpringBootApplication
+
 @MapperScan("com.penguin.mind.mapper")
 
 

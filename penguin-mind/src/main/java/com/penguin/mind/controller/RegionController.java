@@ -1,6 +1,8 @@
 package com.penguin.mind.controller;
 
 import java.util.List;
+
+import com.penguin.mind.domain.vo.RegionVo;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +44,8 @@ public class RegionController extends BaseController
     public TableDataInfo list(Region region)
     {
         startPage();
-        List<Region> list = regionService.selectRegionList(region);
-        return getDataTable(list);
+        List<RegionVo> volist = regionService.selectRegionVoList(region);
+        return getDataTable(volist);
     }
 
     /**

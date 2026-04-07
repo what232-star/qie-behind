@@ -2,6 +2,7 @@ package com.penguin.mind.service.impl;
 
 import java.util.List;
 import com.penguin.common.utils.DateUtils;
+import com.penguin.mind.domain.vo.NodeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.penguin.mind.mapper.NodeMapper;
@@ -91,5 +92,10 @@ public class NodeServiceImpl implements INodeService
     public int deleteNodeById(String id)
     {
         return nodeMapper.deleteNodeById(id);
+    }
+
+    @Override
+    public List<NodeVo> selectNodeVoList(Node node) {
+        return nodeMapper.selectNodeVoList(node);
     }
 }

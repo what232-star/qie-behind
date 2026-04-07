@@ -2,6 +2,7 @@ package com.penguin.mind.service;
 
 import java.util.List;
 import com.penguin.mind.domain.Region;
+import com.penguin.mind.domain.vo.RegionVo;
 
 /**
  * 区域管理Service接口
@@ -58,4 +59,14 @@ public interface IRegionService
      * @return 结果
      */
     public int deleteRegionById(String id);
+
+
+    /**
+     * 查询区域管理视图对象列表
+     *
+     * @param region 区域管理查询条件
+     * @return 区域管理视图对象集合
+     */
+    public List<RegionVo> selectRegionVoList(Region region);
+
 }

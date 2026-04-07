@@ -35,6 +35,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
 
+    <select id="selectBearVoList" resultType="com.penguin.mind.domain.vo.BearVo">
+        select p.*, count(n.id) as node_count
+        from tb_bear p
+                 left join tb_node n on p.id = n.bear_id
+
+        <where>
+            <if test="bearName != null  and bearName != ''"> and p.bear_name like concat('%', #{bearName}, '%')</if>
+        </where>
+        group by p.id
+    </select>
+
+
     <insert id="insertBear" parameterType="Bear" useGeneratedKeys="true" keyProperty="id">
         insert into tb_bear
         <trim prefix="(" suffix=")" suffixOverrides=",">

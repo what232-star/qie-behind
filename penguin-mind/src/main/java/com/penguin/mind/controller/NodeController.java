@@ -1,6 +1,8 @@
 package com.penguin.mind.controller;
 
 import java.util.List;
+
+import com.penguin.mind.domain.vo.NodeVo;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +44,8 @@ public class NodeController extends BaseController
     public TableDataInfo list(Node node)
     {
         startPage();
-        List<Node> list = nodeService.selectNodeList(node);
-        return getDataTable(list);
+        List<NodeVo> voList = nodeService.selectNodeVoList(node);
+        return getDataTable(voList);
     }
 
     /**

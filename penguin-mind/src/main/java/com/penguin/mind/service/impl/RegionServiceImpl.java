@@ -2,6 +2,7 @@ package com.penguin.mind.service.impl;
 
 import java.util.List;
 import com.penguin.common.utils.DateUtils;
+import com.penguin.mind.domain.vo.RegionVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.penguin.mind.mapper.RegionMapper;
@@ -91,5 +92,17 @@ public class RegionServiceImpl implements IRegionService
     public int deleteRegionById(String id)
     {
         return regionMapper.deleteRegionById(id);
+    }
+
+
+    /**
+     * 查询区域管理视图对象列表
+     *
+     * @param region 区域管理查询条件
+     * @return 区域管理视图对象集合
+     */
+    @Override
+    public List<RegionVo> selectRegionVoList(Region region) {
+        return regionMapper.selectRegionVoList(region);
     }
 }

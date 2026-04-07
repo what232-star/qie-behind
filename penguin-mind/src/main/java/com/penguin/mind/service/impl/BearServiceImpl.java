@@ -2,6 +2,8 @@ package com.penguin.mind.service.impl;
 
 import java.util.List;
 import com.penguin.common.utils.DateUtils;
+import com.penguin.common.utils.SecurityUtils;
+import com.penguin.mind.domain.vo.BearVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.penguin.mind.mapper.BearMapper;
@@ -53,6 +55,8 @@ public class BearServiceImpl implements IBearService
     @Override
     public int insertBear(Bear bear)
     {
+        //使用spring security对密码进行加密
+        bear.setPassword(SecurityUtils.encryptPassword(bear.getPassword()));
         bear.setCreateTime(DateUtils.getNowDate());
         return bearMapper.insertBear(bear);
     }
@@ -91,5 +95,10 @@ public class BearServiceImpl implements IBearService
     public int deleteBearById(String id)
     {
         return bearMapper.deleteBearById(id);
+    }
+
+    @Override
+    public List<BearVo> selectBearVoList(Bear bear) {
+        return bearMapper.selectBearVoList( bear);
     }
 }

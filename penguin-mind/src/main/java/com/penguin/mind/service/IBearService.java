@@ -2,6 +2,7 @@ package com.penguin.mind.service;
 
 import java.util.List;
 import com.penguin.mind.domain.Bear;
+import com.penguin.mind.domain.vo.BearVo;
 
 /**
  * 熊熊合作商管理Service接口
@@ -58,4 +59,6 @@ public interface IBearService
      * @return 结果
      */
     public int deleteBearById(String id);
+
+    public List<BearVo> selectBearVoList(Bear bear);
 }

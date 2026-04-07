@@ -2,6 +2,7 @@ package com.penguin.mind.mapper;
 
 import java.util.List;
 import com.penguin.mind.domain.Bear;
+import com.penguin.mind.domain.vo.BearVo;
 
 /**
  * 熊熊合作商管理Mapper接口
@@ -58,4 +59,7 @@ public interface BearMapper
      * @return 结果
      */
     public int deleteBearByIds(String[] ids);
+
+
+    public List<BearVo> selectBearVoList(Bear bear);
 }

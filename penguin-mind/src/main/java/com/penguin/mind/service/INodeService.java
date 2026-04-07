@@ -2,6 +2,7 @@ package com.penguin.mind.service;
 
 import java.util.List;
 import com.penguin.mind.domain.Node;
+import com.penguin.mind.domain.vo.NodeVo;
 
 /**
  * 点位管理Service接口
@@ -58,4 +59,7 @@ public interface INodeService
      * @return 结果
      */
     public int deleteNodeById(String id);
+
+    public List<NodeVo> selectNodeVoList(Node node);
+
 }
