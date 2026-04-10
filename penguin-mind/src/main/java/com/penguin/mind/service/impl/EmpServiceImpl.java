@@ -2,6 +2,10 @@ package com.penguin.mind.service.impl;
 
 import java.util.List;
 import com.penguin.common.utils.DateUtils;
+import com.penguin.mind.domain.Region;
+import com.penguin.mind.domain.Role;
+import com.penguin.mind.mapper.RegionMapper;
+import com.penguin.mind.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.penguin.mind.mapper.EmpMapper;
@@ -19,6 +23,12 @@ public class EmpServiceImpl implements IEmpService
 {
     @Autowired
     private EmpMapper empMapper;
+
+    @Autowired
+    private RegionMapper regionMapper;
+
+    @Autowired
+    private RoleMapper roleMapper;
 
     /**
      * 查询人员列表
@@ -53,6 +63,18 @@ public class EmpServiceImpl implements IEmpService
     @Override
     public int insertEmp(Emp emp)
     {
+        //补充区域名称
+        //补充角色信息
+        Region region = regionMapper.selectRegionById(emp.getRegionId());
+        if (region != null) {
+            emp.setRegionName(region.getRegionName());
+        }
+
+        Role role = roleMapper.selectRoleByRoleId(emp.getRoleId());
+        if (role != null) {
+            emp.setRoleName(role.getRoleName());
+            emp.setRoleCode(role.getRoleCode());
+        }
         emp.setCreateTime(DateUtils.getNowDate());
         return empMapper.insertEmp(emp);
     }
@@ -66,6 +88,17 @@ public class EmpServiceImpl implements IEmpService
     @Override
     public int updateEmp(Emp emp)
     {
+        Region region = regionMapper.selectRegionById(emp.getRegionId());
+
+        if (region != null) {
+            emp.setRegionName(region.getRegionName());
+        }
+
+        Role role = roleMapper.selectRoleByRoleId(emp.getRoleId());
+        if (role != null) {
+            emp.setRoleName(role.getRoleName());
+            emp.setRoleCode(role.getRoleCode());
+        }
         emp.setUpdateTime(DateUtils.getNowDate());
         return empMapper.updateEmp(emp);
     }

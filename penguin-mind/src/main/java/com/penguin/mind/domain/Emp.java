@@ -23,7 +23,7 @@ public class Emp extends BaseEntity
     private String userName;
 
     /** 所属区域ID */
-    private Long regionId;
+    private String regionId;
 
     /** 归属区域 */
     @Excel(name = "归属区域")
@@ -69,12 +69,12 @@ public class Emp extends BaseEntity
         return userName;
     }
 
-    public void setRegionId(Long regionId) 
+    public void setRegionId(String regionId)
     {
         this.regionId = regionId;
     }
 
-    public Long getRegionId() 
+    public String getRegionId()
     {
         return regionId;
     }
