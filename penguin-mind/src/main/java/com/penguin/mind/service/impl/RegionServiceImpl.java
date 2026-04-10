@@ -3,11 +3,13 @@ package com.penguin.mind.service.impl;
 import java.util.List;
 import com.penguin.common.utils.DateUtils;
 import com.penguin.mind.domain.vo.RegionVo;
+import com.penguin.mind.mapper.EmpMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.penguin.mind.mapper.RegionMapper;
 import com.penguin.mind.domain.Region;
 import com.penguin.mind.service.IRegionService;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 区域管理Service业务层处理
@@ -20,6 +22,9 @@ public class RegionServiceImpl implements IRegionService
 {
     @Autowired
     private RegionMapper regionMapper;
+
+    @Autowired
+    private EmpMapper empMapper;
 
     /**
      * 查询区域管理
@@ -54,8 +59,13 @@ public class RegionServiceImpl implements IRegionService
     @Override
     public int insertRegion(Region region)
     {
+
+
         region.setCreateTime(DateUtils.getNowDate());
-        return regionMapper.insertRegion(region);
+        int result = regionMapper.insertRegion(region);
+
+
+        return result;
     }
 
     /**
@@ -64,10 +74,16 @@ public class RegionServiceImpl implements IRegionService
      * @param region 区域管理
      * @return 结果
      */
+    @Transactional(rollbackFor = Exception.class)//事务注解
     @Override
     public int updateRegion(Region region)
     {
-        return regionMapper.updateRegion(region);
+        int result = regionMapper.updateRegion(region);
+
+        //同步更新员工表中的区域名称
+        empMapper.updateRegionById(region.getRegionName(), region.getId());
+
+        return result;
     }
 
     /**
