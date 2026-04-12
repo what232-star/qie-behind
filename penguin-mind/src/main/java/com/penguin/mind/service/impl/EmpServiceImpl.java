@@ -6,6 +6,7 @@ import com.penguin.mind.domain.Region;
 import com.penguin.mind.domain.Role;
 import com.penguin.mind.mapper.RegionMapper;
 import com.penguin.mind.mapper.RoleMapper;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.penguin.mind.mapper.EmpMapper;
@@ -126,4 +127,7 @@ public class EmpServiceImpl implements IEmpService
     {
         return empMapper.deleteEmpById(id);
     }
+
+
+
 }

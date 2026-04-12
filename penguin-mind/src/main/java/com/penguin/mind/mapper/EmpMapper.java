@@ -2,6 +2,9 @@ package com.penguin.mind.mapper;
 
 import java.util.List;
 import com.penguin.mind.domain.Emp;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
+import org.springframework.security.core.parameters.P;
 
 /**
  * 人员列表Mapper接口
@@ -58,4 +61,14 @@ public interface EmpMapper
      * @return 结果
      */
     public int deleteEmpByIds(Long[] ids);
+
+
+    /*
+    * 根据区域id修改区域名称
+    * @param regionName 区域名称
+    * @param regionId 区域id
+    * */
+    @Update("update tb_emp set region_name=#{regionName} where region_id=#{regionId}")
+    //因为占位符并不知道哪个对应哪个，所以下面这里要加注解param
+    public int updateRegionById(@Param("regionName") String regionName, @Param("regionId") String regionId);
 }
