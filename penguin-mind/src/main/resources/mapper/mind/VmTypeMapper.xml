@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.penguin.mind.mapper.VmTypeMapper">
+    
+    <resultMap type="VmType" id="VmTypeResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="model"    column="model"    />
+        <result property="image"    column="image"    />
+        <result property="vmRow"    column="vm_row"    />
+        <result property="vmCol"    column="vm_col"    />
+        <result property="channelMaxCapacity"    column="channel_max_capacity"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectVmTypeVo">
+        select id, name, model, image, vm_row, vm_col, channel_max_capacity, create_time, update_time, create_by, update_by, remark from tb_vm_type
+    </sql>
+
+    <select id="selectVmTypeList" parameterType="VmType" resultMap="VmTypeResult">
+        <include refid="selectVmTypeVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="model != null  and model != ''"> and model = #{model}</if>
+        </where>
+    </select>
+    
+    <select id="selectVmTypeById" parameterType="Long" resultMap="VmTypeResult">
+        <include refid="selectVmTypeVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertVmType" parameterType="VmType" useGeneratedKeys="true" keyProperty="id">
+        insert into tb_vm_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="model != null">model,</if>
+            <if test="image != null">image,</if>
+            <if test="vmRow != null">vm_row,</if>
+            <if test="vmCol != null">vm_col,</if>
+            <if test="channelMaxCapacity != null">channel_max_capacity,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="model != null">#{model},</if>
+            <if test="image != null">#{image},</if>
+            <if test="vmRow != null">#{vmRow},</if>
+            <if test="vmCol != null">#{vmCol},</if>
+            <if test="channelMaxCapacity != null">#{channelMaxCapacity},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVmType" parameterType="VmType">
+        update tb_vm_type
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="model != null">model = #{model},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="vmRow != null">vm_row = #{vmRow},</if>
+            <if test="vmCol != null">vm_col = #{vmCol},</if>
+            <if test="channelMaxCapacity != null">channel_max_capacity = #{channelMaxCapacity},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteVmTypeById" parameterType="Long">
+        delete from tb_vm_type where id = #{id}
+    </delete>
+
+    <delete id="deleteVmTypeByIds" parameterType="String">
+        delete from tb_vm_type where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
