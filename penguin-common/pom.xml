@@ -125,6 +125,13 @@
             <!-- 不用写version，父工程的dependencyManagement已经统一声明了版本号 -->
         </dependency>
 
+
+        <!-- lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
