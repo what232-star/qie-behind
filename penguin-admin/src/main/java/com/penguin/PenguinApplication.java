@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
  * 启动程序
  * git@github.com:what232-star/qie-front.git  前端仓库
  * git@github.com:what232-star/qie-behind.git 后端仓库
+ * https://github.com/what232-star/qie-behind.git
  *
  *
  * cd D:\Redis\Redis-x64-3.2.100
