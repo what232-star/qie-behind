@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.penguin.mind.mapper.PenguinMapper">
+    
+    <resultMap type="Penguin" id="PenguinResult">
+        <result property="penguinId"    column="penguin_id"    />
+        <result property="penguinName"    column="penguin_name"    />
+        <result property="penguinImage"    column="penguin_image"    />
+        <result property="brandName"    column="brand_Name"    />
+        <result property="unit"    column="unit"    />
+        <result property="price"    column="price"    />
+        <result property="classId"    column="class_id"    />
+        <result property="isDiscount"    column="is_discount"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectPenguinVo">
+        select penguin_id, penguin_name, penguin_image, brand_Name, unit, price, class_id, is_discount, create_time, update_time from tb_penguin
+    </sql>
+
+    <select id="selectPenguinList" parameterType="Penguin" resultMap="PenguinResult">
+        <include refid="selectPenguinVo"/>
+        <where>  
+            <if test="penguinName != null  and penguinName != ''"> and penguin_name like concat('%', #{penguinName}, '%')</if>
+            <if test="classId != null "> and class_id = #{classId}</if>
+        </where>
+    </select>
+    
+    <select id="selectPenguinByPenguinId" parameterType="Long" resultMap="PenguinResult">
+        <include refid="selectPenguinVo"/>
+        where penguin_id = #{penguinId}
+    </select>
+
+    <insert id="insertPenguin" parameterType="Penguin">
+        insert into tb_penguin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="penguinId != null">penguin_id,</if>
+            <if test="penguinName != null and penguinName != ''">penguin_name,</if>
+            <if test="penguinImage != null and penguinImage != ''">penguin_image,</if>
+            <if test="brandName != null and brandName != ''">brand_Name,</if>
+            <if test="unit != null and unit != ''">unit,</if>
+            <if test="price != null">price,</if>
+            <if test="classId != null">class_id,</if>
+            <if test="isDiscount != null">is_discount,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="penguinId != null">#{penguinId},</if>
+            <if test="penguinName != null and penguinName != ''">#{penguinName},</if>
+            <if test="penguinImage != null and penguinImage != ''">#{penguinImage},</if>
+            <if test="brandName != null and brandName != ''">#{brandName},</if>
+            <if test="unit != null and unit != ''">#{unit},</if>
+            <if test="price != null">#{price},</if>
+            <if test="classId != null">#{classId},</if>
+            <if test="isDiscount != null">#{isDiscount},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePenguin" parameterType="Penguin">
+        update tb_penguin
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="penguinName != null and penguinName != ''">penguin_name = #{penguinName},</if>
+            <if test="penguinImage != null and penguinImage != ''">penguin_image = #{penguinImage},</if>
+            <if test="brandName != null and brandName != ''">brand_Name = #{brandName},</if>
+            <if test="unit != null and unit != ''">unit = #{unit},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="classId != null">class_id = #{classId},</if>
+            <if test="isDiscount != null">is_discount = #{isDiscount},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where penguin_id = #{penguinId}
+    </update>
+
+    <delete id="deletePenguinByPenguinId" parameterType="Long">
+        delete from tb_penguin where penguin_id = #{penguinId}
+    </delete>
+
+    <delete id="deletePenguinByPenguinIds" parameterType="String">
+        delete from tb_penguin where penguin_id in 
+        <foreach item="penguinId" collection="array" open="(" separator="," close=")">
+            #{penguinId}
+        </foreach>
+    </delete>
+</mapper>

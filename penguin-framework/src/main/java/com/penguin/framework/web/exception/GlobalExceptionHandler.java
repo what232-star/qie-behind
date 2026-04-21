@@ -154,6 +154,11 @@ public class GlobalExceptionHandler
             {
                 return AjaxResult.error("此数据已被引用，无法删除");
             }
+            if(e.getMessage().contains("Duplicate"))
+            {
+                return AjaxResult.error("数据已存在");
+            }
+
             return AjaxResult.error("数据完整性异常");
         }
 }
