@@ -104,4 +104,10 @@ public class ChannelServiceImpl implements IChannelService
     public int batchInsertChannel(List<Channel> channelList) {
         return channelMapper.batchInsertChannel(channelList);
     }
+
+    //根据商品id来查询货道数量
+    @Override
+    public int countChannelByPenguinIds(Long[] penguinIds) {
+        return channelMapper.countChannelByPenguinIds(penguinIds);
+    }
 }

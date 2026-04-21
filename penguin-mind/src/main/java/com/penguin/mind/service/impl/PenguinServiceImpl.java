@@ -1,7 +1,10 @@
 package com.penguin.mind.service.impl;
 
 import java.util.List;
+
+import com.penguin.common.exception.ServiceException;
 import com.penguin.common.utils.DateUtils;
+import com.penguin.mind.service.IChannelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.penguin.mind.mapper.PenguinMapper;
@@ -19,6 +22,9 @@ public class PenguinServiceImpl implements IPenguinService
 {
     @Autowired
     private PenguinMapper penguinMapper;
+
+    @Autowired
+    private IChannelService channelService;
 
     /**
      * 查询企鹅盲盒管理
@@ -79,6 +85,15 @@ public class PenguinServiceImpl implements IPenguinService
     @Override
     public int deletePenguinByPenguinIds(Long[] penguinIds)
     {
+        //1.判断是否关联了货道
+        int count = channelService.countChannelByPenguinIds(penguinIds);
+        if (count > 0){
+            throw new ServiceException("企鹅盲盒关联了货道，无法删除");
+        }
+
+
+        //2.没有关联货道，才能删除
+
         return penguinMapper.deletePenguinByPenguinIds(penguinIds);
     }
 

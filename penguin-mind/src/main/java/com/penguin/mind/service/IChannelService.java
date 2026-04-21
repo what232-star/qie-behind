@@ -67,4 +67,7 @@ public interface IChannelService
      * @return 结果
      */
     public int batchInsertChannel(List<Channel> channelList);
+
+    //根据商品id来查询货道数量
+    int countChannelByPenguinIds(Long[] penguinIds);
 }
