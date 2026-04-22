@@ -1,5 +1,6 @@
 package com.penguin.mind.controller;
 
+import java.io.IOException;
 import java.util.List;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +21,7 @@ import com.penguin.mind.domain.Penguin;
 import com.penguin.mind.service.IPenguinService;
 import com.penguin.common.utils.poi.ExcelUtil;
 import com.penguin.common.core.page.TableDataInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 企鹅盲盒管理Controller
@@ -58,6 +60,19 @@ public class PenguinController extends BaseController
         ExcelUtil<Penguin> util = new ExcelUtil<Penguin>(Penguin.class);
         util.exportExcel(response, list, "企鹅盲盒管理数据");
     }
+
+    //导入企鹅盲盒列表
+    @PreAuthorize("@ss.hasPermi('mind:penguin:add')")
+    @Log(title = "企鹅盲盒管理", businessType = BusinessType.IMPORT)
+
+    @PostMapping("/import")
+    public AjaxResult excelImport(MultipartFile file) throws Exception {
+        ExcelUtil<Penguin> util = new ExcelUtil<Penguin>(Penguin.class);//解析获取excel数据
+        List<Penguin> list = util.importExcel(file.getInputStream());
+        return toAjax(penguinService.insertPenguins(list));
+    }
+
+
 
     /**
      * 获取企鹅盲盒管理详细信息

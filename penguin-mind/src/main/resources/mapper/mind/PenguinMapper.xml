@@ -62,6 +62,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
+    <insert id="insertPenguins" parameterType="java.util.List">
+        insert into tb_penguin (
+        penguin_id,
+        penguin_name,
+        penguin_image,
+        brand_Name,
+        unit,
+        price,
+        class_id,
+
+        ) values
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.penguinId},
+            #{item.penguinName},
+            #{item.penguinImage},
+            #{item.brandName},
+            #{item.unit},
+            #{item.price},
+            #{item.classId},
+            )
+        </foreach>
+    </insert>
+
+
+
     <update id="updatePenguin" parameterType="Penguin">
         update tb_penguin
         <trim prefix="SET" suffixOverrides=",">

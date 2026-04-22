@@ -58,4 +58,7 @@ public interface IPenguinService
      * @return 结果
      */
     public int deletePenguinByPenguinId(Long penguinId);
+
+    //批量新增
+    public int insertPenguins(List<Penguin> penguinList);
 }

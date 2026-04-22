@@ -58,4 +58,7 @@ public interface PenguinMapper
      * @return 结果
      */
     public int deletePenguinByPenguinIds(Long[] penguinIds);
+
+    //批量新增
+    public int insertPenguins(List<Penguin> penguinList);
 }

@@ -108,4 +108,10 @@ public class PenguinServiceImpl implements IPenguinService
     {
         return penguinMapper.deletePenguinByPenguinId(penguinId);
     }
+
+    //批量新增企鹅
+    @Override
+    public int insertPenguins(List<Penguin> penguinList) {
+        return penguinMapper.insertPenguins(penguinList);
+    }
 }
