@@ -1,12 +1,17 @@
 package com.penguin.mind.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import com.penguin.common.utils.DateUtils;
+import com.penguin.mind.domain.dto.ChannelConfigDto;
+import com.penguin.mind.domain.vo.ChannelVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.penguin.mind.mapper.ChannelMapper;
 import com.penguin.mind.domain.Channel;
 import com.penguin.mind.service.IChannelService;
+
 
 /**
  * 售货机货道管理Service业务层处理
@@ -109,5 +114,25 @@ public class ChannelServiceImpl implements IChannelService
     @Override
     public int countChannelByPenguinIds(Long[] penguinIds) {
         return channelMapper.countChannelByPenguinIds(penguinIds);
+    }
+
+    //根据设备编号来查询货道列表
+    @Override
+    public List<ChannelVo> selectChannelVoListByInnerCode(String innerCode) {
+        return channelMapper.selectChannelVoListByInnerCode(innerCode);
+    }
+
+    @Override
+    public int setChannelConfig(ChannelConfigDto channelConfigDto) {
+        List<Channel> channelList = channelConfigDto.getChannelList().stream().map(dto -> {
+            Channel channel = channelMapper.getChannelInfo(dto.getInnerCode(),dto.getChannelCode() );
+            if(channel!=null)
+            {
+                channel.setSkuId(dto.getPenguinId());
+                channel.setUpdateTime(DateUtils.getNowDate());
+            }
+            return channel;
+        }).collect(Collectors.toList());
+        return channelMapper.batchUpdateChannels(channelList);
     }
 }

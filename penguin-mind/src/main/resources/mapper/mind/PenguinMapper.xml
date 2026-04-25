@@ -70,7 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         brand_Name,
         unit,
         price,
-        class_id,
+        class_id
 
         ) values
         <foreach collection="list" item="item" separator=",">

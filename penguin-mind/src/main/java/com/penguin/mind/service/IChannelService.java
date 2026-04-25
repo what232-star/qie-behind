@@ -2,6 +2,9 @@ package com.penguin.mind.service;
 
 import java.util.List;
 import com.penguin.mind.domain.Channel;
+import com.penguin.mind.domain.dto.ChannelConfigDto;
+import com.penguin.mind.domain.vo.ChannelVo;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 售货机货道管理Service接口
@@ -70,4 +73,14 @@ public interface IChannelService
 
     //根据商品id来查询货道数量
     int countChannelByPenguinIds(Long[] penguinIds);
+
+    /**
+     * 根据设备编号来查询货道列表
+     * @param innerCode 设备编号
+     * @return 货道列表
+     */
+    List<ChannelVo> selectChannelVoListByInnerCode( String innerCode);
+
+    //货道关联企鹅
+    int setChannelConfig(ChannelConfigDto channelConfigDto);
 }

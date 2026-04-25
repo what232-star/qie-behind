@@ -1,6 +1,9 @@
 package com.penguin.mind.controller;
 
 import java.util.List;
+
+import com.penguin.mind.domain.dto.ChannelConfigDto;
+import com.penguin.mind.domain.vo.ChannelVo;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,8 @@ public class ChannelController extends BaseController
 {
     @Autowired
     private IChannelService channelService;
+
+
 
     /**
      * 查询售货机货道管理列表
@@ -101,4 +106,21 @@ public class ChannelController extends BaseController
     {
         return toAjax(channelService.deleteChannelByIds(ids));
     }
+
+
+    @PreAuthorize("@ss.hasPermi('mind:channel:list')")
+    @GetMapping("/list/{innerCode}")
+    public AjaxResult listByInnerCode(@PathVariable String innerCode)
+    {
+        List < ChannelVo> list = channelService.selectChannelVoListByInnerCode(innerCode);
+        return success(list);
+    }
+
+    //货道关联商品
+    @PutMapping ("/config")
+    public AjaxResult setChannelConfig(@RequestBody ChannelConfigDto channelConfigDto)
+    {
+        return toAjax(channelService.setChannelConfig(channelConfigDto));
+    }
+
 }
