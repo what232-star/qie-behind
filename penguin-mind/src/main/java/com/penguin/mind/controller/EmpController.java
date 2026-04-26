@@ -1,6 +1,10 @@
 package com.penguin.mind.controller;
 
 import java.util.List;
+
+import com.penguin.common.constant.PenguinConstants;
+import com.penguin.mind.domain.VendingMachine;
+import com.penguin.mind.service.IVendingMachineService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +37,9 @@ public class EmpController extends BaseController
 {
     @Autowired
     private IEmpService empService;
+
+    @Autowired
+    private IVendingMachineService  vendingMachineService;
 
     /**
      * 查询人员列表列表
@@ -77,6 +84,14 @@ public class EmpController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody Emp emp)
     {
+        // 根据角色名称自动修正 role_code，确保统一为数字编码
+        if (emp.getRoleName() != null) {
+            if (emp.getRoleName().contains("运营")) {
+                emp.setRoleCode(PenguinConstants.ROLE_CODE_BUSINESS); // 设置为 1002
+            } else if (emp.getRoleName().contains("运维")) {
+                emp.setRoleCode(PenguinConstants.ROLE_CODE_OPERATOR); // 设置为 1003
+            }
+        }
         return toAjax(empService.insertEmp(emp));
     }
 
@@ -100,5 +115,45 @@ public class EmpController extends BaseController
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(empService.deleteEmpByIds(ids));
+    }
+
+
+    //根据售货机查询运营人员列表
+    @PreAuthorize("@ss.hasPermi('mind:emp:list')")
+    @GetMapping("/businessList/{innerCode}")
+    public AjaxResult businessList(@PathVariable String innerCode)
+    {
+//        1. 根据售货机编号查询售货机信息
+        VendingMachine vendingMachine = vendingMachineService.selectVendingMachineByInnerCode(innerCode);
+        if(vendingMachine == null)
+        {
+            return error("售货机不存在");
+        }
+//        2. 根据售货机信息（区域id，角色编号，员工状态）查询人员列表
+        Emp emp = new Emp();
+        emp.setRegionId((String.valueOf(vendingMachine.getRegionId())));//区域id
+        emp.setRoleCode(PenguinConstants.ROLE_CODE_BUSINESS);//角色编号：运营员
+        emp.setStatus(PenguinConstants.EMP_STATUS_NORMAL);//员工启用状态
+        return success(empService.selectEmpList(emp));
+    }
+
+
+    //根据售货机查询运维人员列表
+    @PreAuthorize("@ss.hasPermi('mind:emp:list')")
+    @GetMapping("/operationList/{innerCode}")
+    public AjaxResult operationList(@PathVariable String innerCode)
+    {
+//        1. 根据售货机编号查询售货机信息
+        VendingMachine vendingMachine = vendingMachineService.selectVendingMachineByInnerCode(innerCode);
+        if(vendingMachine == null)
+        {
+            return error("售货机不存在");
+        }
+//        2. 根据售货机信息（区域id，角色编号，员工状态）查询人员列表
+        Emp emp = new Emp();
+        emp.setRegionId((String.valueOf(vendingMachine.getRegionId())));//区域id
+        emp.setRoleCode(PenguinConstants.ROLE_CODE_OPERATOR);//角色编号：运营员
+        emp.setStatus(PenguinConstants.EMP_STATUS_NORMAL);//员工启用状态
+        return success(empService.selectEmpList(emp));
     }
 }

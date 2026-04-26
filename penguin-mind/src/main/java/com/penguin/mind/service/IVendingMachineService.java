@@ -2,6 +2,7 @@ package com.penguin.mind.service;
 
 import java.util.List;
 import com.penguin.mind.domain.VendingMachine;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * 自动售货机设备管理Service接口
@@ -58,4 +59,7 @@ public interface IVendingMachineService
      * @return 结果
      */
     public int deleteVendingMachineById(Long id);
+
+    //根据设备编号查询设备信息
+    VendingMachine selectVendingMachineByInnerCode(String innerCode);
 }

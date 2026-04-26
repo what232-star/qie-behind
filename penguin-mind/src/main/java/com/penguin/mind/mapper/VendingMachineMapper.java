@@ -2,6 +2,8 @@ package com.penguin.mind.mapper;
 
 import java.util.List;
 import com.penguin.mind.domain.VendingMachine;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * 自动售货机设备管理Mapper接口
@@ -58,4 +60,9 @@ public interface VendingMachineMapper
      * @return 结果
      */
     public int deleteVendingMachineByIds(Long[] ids);
+
+
+    //根据设备编号查询设备信息
+    @Select("select * from tb_vending_machine where inner_code = #{innerCode}")
+    VendingMachine selectVendingMachineByInnerCode(String innerCode);
 }

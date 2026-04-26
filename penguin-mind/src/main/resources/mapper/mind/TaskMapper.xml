@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
 
-    <resultMap type="Task" id="TaskVoResult">
+    <resultMap type="TaskVo" id="TaskVoResult">
         <result property="taskId"    column="task_id"    />
         <result property="taskCode"    column="task_code"    />
         <result property="taskStatus"    column="task_status"    />
