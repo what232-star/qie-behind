@@ -36,6 +36,14 @@ public interface TaskDetailsMapper
     public int insertTaskDetails(TaskDetails taskDetails);
 
     /**
+     * 批量新增工单详情
+     * 
+     * @param taskDetailsList 工单详情列表
+     * @return 结果
+     */
+    public int batchInsertTaskDetails(List<TaskDetails> taskDetailsList);
+
+    /**
      * 修改工单详情
      * 
      * @param taskDetails 工单详情

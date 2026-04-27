@@ -9,13 +9,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="taskId"    column="task_id"    />
         <result property="channelCode"    column="channel_code"    />
         <result property="expectCapacity"    column="expect_capacity"    />
-        <result property="skuId"    column="sku_id"    />
-        <result property="skuName"    column="sku_name"    />
-        <result property="skuImage"    column="sku_image"    />
+        <result property="penguinId"    column="penguin_id"    />
+        <result property="penguinName"    column="penguin_name"    />
+        <result property="penguinImage"    column="penguin_image"    />
     </resultMap>
 
     <sql id="selectTaskDetailsVo">
-        select details_id, task_id, channel_code, expect_capacity, sku_id, sku_name, sku_image from tb_task_details
+        select details_id, task_id, channel_code, expect_capacity, penguin_id, penguin_name, penguin_image from tb_task_details
     </sql>
 
     <select id="selectTaskDetailsList" parameterType="TaskDetails" resultMap="TaskDetailsResult">
@@ -24,9 +24,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="taskId != null "> and task_id = #{taskId}</if>
             <if test="channelCode != null  and channelCode != ''"> and channel_code = #{channelCode}</if>
             <if test="expectCapacity != null "> and expect_capacity = #{expectCapacity}</if>
-            <if test="skuId != null "> and sku_id = #{skuId}</if>
-            <if test="skuName != null  and skuName != ''"> and sku_name like concat('%', #{skuName}, '%')</if>
-            <if test="skuImage != null  and skuImage != ''"> and sku_image = #{skuImage}</if>
+            <if test="penguinId != null "> and penguin_id = #{penguinId}</if>
+            <if test="penguinName != null  and penguinName != ''"> and penguin_name like concat('%', #{penguinName}, '%')</if>
+            <if test="penguinImage != null  and penguinImage != ''"> and penguin_image = #{penguinImage}</if>
         </where>
     </select>
     
@@ -41,19 +41,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="taskId != null">task_id,</if>
             <if test="channelCode != null">channel_code,</if>
             <if test="expectCapacity != null">expect_capacity,</if>
-            <if test="skuId != null">sku_id,</if>
-            <if test="skuName != null">sku_name,</if>
-            <if test="skuImage != null">sku_image,</if>
+            <if test="penguinId != null">penguin_id,</if>
+            <if test="penguinName != null">penguin_name,</if>
+            <if test="penguinImage != null">penguin_image,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="taskId != null">#{taskId},</if>
             <if test="channelCode != null">#{channelCode},</if>
             <if test="expectCapacity != null">#{expectCapacity},</if>
-            <if test="skuId != null">#{skuId},</if>
-            <if test="skuName != null">#{skuName},</if>
-            <if test="skuImage != null">#{skuImage},</if>
+            <if test="penguinId != null">#{penguinId},</if>
+            <if test="penguinName != null">#{penguinName},</if>
+            <if test="penguinImage != null">#{penguinImage},</if>
          </trim>
     </insert>
+
+
+    <!-- ... existing code  批量新增 ... -->
+
+    <insert id="batchInsertTaskDetails" parameterType="java.util.List">
+        insert into tb_task_details (task_id, channel_code, expect_capacity, penguin_id, penguin_name, penguin_image)
+        values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.taskId}, #{item.channelCode}, #{item.expectCapacity}, #{item.penguinId}, #{item.penguinName}, #{item.penguinImage})
+        </foreach>
+    </insert>
+
+    <!-- ... existing code ... -->
+
 
     <update id="updateTaskDetails" parameterType="TaskDetails">
         update tb_task_details
@@ -61,9 +75,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="taskId != null">task_id = #{taskId},</if>
             <if test="channelCode != null">channel_code = #{channelCode},</if>
             <if test="expectCapacity != null">expect_capacity = #{expectCapacity},</if>
-            <if test="skuId != null">sku_id = #{skuId},</if>
-            <if test="skuName != null">sku_name = #{skuName},</if>
-            <if test="skuImage != null">sku_image = #{skuImage},</if>
+            <if test="penguinId != null">penguin_id = #{penguinId},</if>
+            <if test="penguinName != null">penguin_name = #{penguinName},</if>
+            <if test="penguinImage != null">penguin_image = #{penguinImage},</if>
         </trim>
         where details_id = #{detailsId}
     </update>

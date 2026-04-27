@@ -40,16 +40,16 @@ public class TaskDetails extends BaseEntity
     @Excel(name = "补货期望容量")
     private Long expectCapacity;
 
-    /** 商品ID */
-    @Excel(name = "商品ID")
-    private Long skuId;
+    /** 企鹅ID */
+    @Excel(name = "企鹅ID")
+    private Long penguinId;
 
-    /** 商品名称 */
-    @Excel(name = "商品名称")
-    private String skuName;
+    /** 企鹅名称 */
+    @Excel(name = "企鹅名称")
+    private String penguinName;
 
-    /** 商品图片 */
-    @Excel(name = "商品图片")
-    private String skuImage;
+    /** 企鹅图片 */
+    @Excel(name = "企鹅图片")
+    private String penguinImage;
 
 }

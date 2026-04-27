@@ -90,4 +90,9 @@ public class TaskDetailsServiceImpl implements ITaskDetailsService
     {
         return taskDetailsMapper.deleteTaskDetailsByDetailsId(detailsId);
     }
+
+    @Override
+    public int batchInsertTaskDetails(List<TaskDetails> taskDetailsList) {
+        return taskDetailsMapper.batchInsertTaskDetails(taskDetailsList);
+    }
 }
