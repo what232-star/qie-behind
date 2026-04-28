@@ -1,9 +1,14 @@
 package com.penguin.mind.domain.dto;
 
 
+
+import lombok.Data;
+
 import java.util.List;
 
-public class TaskDto  {
+
+@Data
+public class TaskDto {
     private Long createType;//创建类型
     private String innerCode;//设备编号
     private Long userId;//执行人ID

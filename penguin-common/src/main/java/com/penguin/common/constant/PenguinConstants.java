@@ -6,11 +6,46 @@ package com.penguin.common.constant;
 public class PenguinConstants {
 
     /**
+     * 工单状态：创建(待处理)
+     */
+    public static final Long TASK_STATUS_CREATE = 1L;
+
+    /**
+     * 工单状态：进行中
+     */
+    public static final Long TASK_STATUS_PROGRESS = 2L;
+
+    /**
+     * 工单状态：取消
+     */
+    public static final Long TASK_STATUS_CANCEL = 3L;
+
+    /**
      * 工单状态：完成
      */
     public static final Long TASK_STATUS_FINISH = 4L;
 
 
+    /**
+     * 工单类型：投放
+     */
+    public static final Long TASK_TYPE_DEPLOY = 1L;
+
+    /**
+     * 工单类型：补货
+     */
+
+    public static final Long TASK_TYPE_SUPPLY = 2L;
+
+    /**
+     * 工单类型：维修
+     */
+    public static final Long TASK_TYPE_REPAIR = 3L;
+
+    /**
+     * 工单类型：撤机
+     */
+    public static final Long TASK_TYPE_REVOKE = 4L;
 
 
 //     员工启用

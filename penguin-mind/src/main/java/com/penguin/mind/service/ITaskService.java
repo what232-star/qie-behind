@@ -2,6 +2,7 @@ package com.penguin.mind.service;
 
 import java.util.List;
 import com.penguin.mind.domain.Task;
+import com.penguin.mind.domain.dto.TaskDto;
 import com.penguin.mind.domain.vo.TaskVo;
 
 /**
@@ -63,4 +64,7 @@ public interface ITaskService
 
     //查询工单列表
     public List<TaskVo>selectTaskVoList(Task task);
+
+    //批量新增工单
+    public int insertTaskDto(TaskDto taskDto);
 }
