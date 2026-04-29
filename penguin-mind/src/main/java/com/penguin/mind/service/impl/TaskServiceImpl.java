@@ -193,6 +193,29 @@ public class TaskServiceImpl implements ITaskService {
         return taskResult;
     }
 
+    //取消工单
+    @Override
+    public int cancelTask(Task task) {
+        //1.判断工单状态是否可以取消
+        //先根据工单id查询数据库
+        Task taskDb = taskMapper.selectTaskByTaskId(task.getTaskId());
+        //判断工单状态是否为已取消，如果是，则抛出异常
+        if (taskDb.getTaskStatus().equals(PenguinConstants.TASK_STATUS_CANCEL)) {
+            throw new ServiceException("工单已取消，不能再取消");
+
+        }
+        //判断工单状态是否为完成，如果是，则取消工单
+        if (taskDb.getTaskStatus().equals(PenguinConstants.TASK_STATUS_FINISH)) {
+            throw new ServiceException("工单已完成，不能再取消");
+
+        }
+        //设置更新字段
+        task.setTaskStatus(PenguinConstants.TASK_STATUS_CANCEL);
+        task.setUpdateTime(DateUtils.getNowDate());
+        //更新工单
+        return taskMapper.updateTask(task);
+    }
+
 
     //生成并获取当天工单编号
     private String generateTaskCode() {
