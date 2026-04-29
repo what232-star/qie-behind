@@ -2,6 +2,7 @@ package com.penguin.mind.controller;
 
 import java.util.List;
 
+import com.penguin.mind.domain.dto.TaskDto;
 import com.penguin.mind.domain.vo.TaskVo;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -77,9 +78,12 @@ public class TaskController extends BaseController
     @PreAuthorize("@ss.hasPermi('mind:task:add')")
     @Log(title = "工单", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody Task task)
+    public AjaxResult add(@RequestBody TaskDto taskDto)
     {
-        return toAjax(taskService.insertTask(task));
+        taskDto.setAssignorId(getUserId());
+
+
+        return toAjax(taskService.insertTaskDto(taskDto));
     }
 
     /**

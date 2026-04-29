@@ -70,6 +70,19 @@ public class TaskDetailsController extends BaseController
     }
 
     /**
+     * 根据任务ID查询工单详情列表
+     */
+    @PreAuthorize("@ss.hasPermi('mind:taskDetails:list')")
+    @GetMapping(value = "/byTaskId/{taskId}")
+    public TableDataInfo getByTaskId(@PathVariable("taskId") Long taskId)
+    {
+        TaskDetails query = new TaskDetails();
+        query.setTaskId(taskId);
+        List<TaskDetails> list = taskDetailsService.selectTaskDetailsList(query);
+        return getDataTable(list);
+    }
+
+    /**
      * 新增工单详情
      */
     @PreAuthorize("@ss.hasPermi('mind:taskDetails:add')")

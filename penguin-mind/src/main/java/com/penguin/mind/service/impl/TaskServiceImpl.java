@@ -146,19 +146,28 @@ public class TaskServiceImpl implements ITaskService {
             throw new ServiceException("员工不存在");
         }
         //校验员工区域是否匹配
-        if (!emp.getRegionId().equals(vm.getRegionId())) {
-            throw new ServiceException("员工区域不匹配");
+        try {
+            Long empRegionId = Long.valueOf(emp.getRegionId());
+            if (!empRegionId.equals(vm.getRegionId())) {
+                throw new ServiceException("员工区域不匹配");
+            }
+        } catch (NumberFormatException e) {
+            throw new ServiceException("员工区域ID格式错误");
         }
-        //将dto转换为po并补充数据，保存工单
+        //将 dto 转换为 po 并补充数据，保存工单
         Task task = BeanUtil.copyProperties(taskDto, Task.class);//属性复制
         task.setTaskStatus(PenguinConstants.TASK_STATUS_CREATE);//创建工单
         task.setUserName(emp.getUserName());// 执行人名称
-        task.setRegionId(vm.getRegionId());// 所属区域id
+        task.setRegionId(vm.getRegionId());// 所属区域 id
         task.setAddr(vm.getAddr());// 地址
         task.setCreateTime(DateUtils.getNowDate());//创建时间
 
-        //利用redis自增来生工单编号
-        task.setTaskCode(generateTaskCode());//工单编号
+        //利用 redis 自增来生工单编号
+        String taskCode = generateTaskCode();
+        if (taskCode == null || taskCode.isEmpty()) {
+            throw new ServiceException("工单编号生成失败");
+        }
+        task.setTaskCode(taskCode);
         int taskResult = taskMapper.insertTask(task);
 
 
@@ -187,19 +196,13 @@ public class TaskServiceImpl implements ITaskService {
 
     //生成并获取当天工单编号
     private String generateTaskCode() {
-        //获取当前日期并改变格式为yyMMdd
         String date = DateUtils.getDate().replaceAll("-", "");
-        //根据日期生成redis的键
         String key = "penguin:task:code:" + date;
-        //判断key是否存在
         if (!redisTemplate.hasKey(key)) {
-            //设置过期时间为1，初始值为1 ，如果不存在
             redisTemplate.opsForValue().set(key, 1, Duration.ofDays(1));
-            //返回工单编号
             return date + "0001";
         }
-        //计数器+1,保证字符串长度为4位
-        return StrUtil.padPre(redisTemplate.opsForValue().increment(key).toString(), 4, "0");
+        return  date + StrUtil.padPre(redisTemplate.opsForValue().increment(key).toString(), 4, "0");
     }
 
 
