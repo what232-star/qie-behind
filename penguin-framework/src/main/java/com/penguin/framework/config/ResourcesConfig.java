@@ -37,6 +37,12 @@ public class ResourcesConfig implements WebMvcConfigurer
         registry.addResourceHandler("/swagger-ui/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
                 .setCacheControl(CacheControl.maxAge(5, TimeUnit.HOURS).cachePublic());
+
+        /** knife4j资源配置 */
+        registry.addResourceHandler("doc.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
     /**

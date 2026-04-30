@@ -172,7 +172,7 @@ public class TaskServiceImpl implements ITaskService {
 
 
         //判断是否为补货工单
-        if (taskDto.getCreateType().equals(PenguinConstants.TASK_TYPE_SUPPLY)) {
+        if (taskDto.getProductTypeId().equals(PenguinConstants.TASK_TYPE_SUPPLY)) {
             //保存补货工单详情
             List<TaskDetailsDto> details = taskDto.getDetails();
             if (CollUtil.isEmpty(details)) {

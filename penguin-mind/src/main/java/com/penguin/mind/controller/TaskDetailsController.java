@@ -69,18 +69,6 @@ public class TaskDetailsController extends BaseController
         return success(taskDetailsService.selectTaskDetailsByDetailsId(detailsId));
     }
 
-    /**
-     * 根据任务ID查询工单详情列表
-     */
-    @PreAuthorize("@ss.hasPermi('mind:taskDetails:list')")
-    @GetMapping(value = "/byTaskId/{taskId}")
-    public TableDataInfo getByTaskId(@PathVariable("taskId") Long taskId)
-    {
-        TaskDetails query = new TaskDetails();
-        query.setTaskId(taskId);
-        List<TaskDetails> list = taskDetailsService.selectTaskDetailsList(query);
-        return getDataTable(list);
-    }
 
     /**
      * 新增工单详情
@@ -113,5 +101,15 @@ public class TaskDetailsController extends BaseController
     public AjaxResult remove(@PathVariable Long[] detailsIds)
     {
         return toAjax(taskDetailsService.deleteTaskDetailsByDetailsIds(detailsIds));
+    }
+
+    //查看工单补货详情
+    @PreAuthorize("@ss.hasPermi('mind:taskDetails:list')")
+    @GetMapping("/byTaskId/{taskId}")
+    public AjaxResult byTaskId(@PathVariable Long taskId)
+    {
+        TaskDetails taskDetails = new TaskDetails();
+        taskDetails.setTaskId(taskId);
+        return success(taskDetailsService.selectTaskDetailsList(taskDetails));
     }
 }
