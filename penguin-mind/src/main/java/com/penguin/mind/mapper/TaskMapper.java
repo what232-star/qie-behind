@@ -1,5 +1,6 @@
 package com.penguin.mind.mapper;
 
+import java.util.Date;
 import java.util.List;
 import com.penguin.mind.domain.Task;
 import com.penguin.mind.domain.vo.TaskVo;
@@ -61,4 +62,13 @@ public interface TaskMapper
     public int deleteTaskByTaskIds(Long[] taskIds);
 
     List<TaskVo>selectTaskVoList(Task task);
+
+    /**
+     * 批量删除指定时间前已完成的工单
+     * 
+     * @param expireTime 过期时间
+     * @param taskStatus 工单状态
+     * @return 删除的记录数
+     */
+    int deleteCompletedTasksByTime(Date expireTime, Long taskStatus);
 }

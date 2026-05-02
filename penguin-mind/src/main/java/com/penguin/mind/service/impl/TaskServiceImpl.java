@@ -1,6 +1,7 @@
 package com.penguin.mind.service.impl;
 
 import java.time.Duration;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -269,4 +270,15 @@ public class TaskServiceImpl implements ITaskService {
         ;
     }
 
+    /**
+     * 删除指定时间前已完成的工单
+     * 
+     * @param expireTime 过期时间
+     * @param taskStatus 工单状态
+     * @return 删除的记录数
+     */
+    @Override
+    public int deleteCompletedTasksByTime(Date expireTime, Long taskStatus) {
+        return taskMapper.deleteCompletedTasksByTime(expireTime, taskStatus);
+    }
 }

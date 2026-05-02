@@ -154,4 +154,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{taskId}
         </foreach>
     </delete>
+
+    <delete id="deleteCompletedTasksByTime">
+        delete from tb_task
+        where task_status = #{taskStatus}
+        and update_time &lt; #{expireTime}
+    </delete>
 </mapper>
