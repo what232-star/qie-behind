@@ -8,11 +8,13 @@ import com.penguin.mind.service.ITaskService;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 工单自动清理定时任务
- * 清理24小时前已完成的工单
+ * 清理24小时前已完成或已取消的工单
  * 
  * @author nian
  * @date 2026-05-02
@@ -25,7 +27,7 @@ public class TaskCleanupJob {
     private ITaskService taskService;
 
     /**
-     * 清理24小时前已完成的工单
+     * 清理24小时前已完成或已取消的工单
      * 通过系统管理->定时任务菜单配置调用: taskCleanupJob.cleanupCompletedTasks
      */
     public void cleanupCompletedTasks() {
@@ -36,10 +38,16 @@ public class TaskCleanupJob {
             LocalDateTime expireTime = LocalDateTime.now().minusHours(24);
             Date expireDate = Date.from(expireTime.atZone(ZoneId.systemDefault()).toInstant());
             
-            log.info("准备清理完成时间早于 {} 的已完成工单", expireTime);
+            log.info("准备清理完成时间早于 {} 的已完成/已取消工单", expireTime);
+            
+            // 需要清理的工单状态：完成(4)、取消(3)
+            List<Long> taskStatuses = Arrays.asList(
+                PenguinConstants.TASK_STATUS_FINISH,    // 完成
+                PenguinConstants.TASK_STATUS_CANCEL     // 取消
+            );
             
             // 通过Service层执行删除操作
-            int deletedCount = taskService.deleteCompletedTasksByTime(expireDate, PenguinConstants.TASK_STATUS_FINISH);
+            int deletedCount = taskService.deleteCompletedOrCancelledTasks(expireDate, taskStatuses);
             
             log.info("========== 工单清理任务执行完成,共清理 {} 条工单 ==========", deletedCount);
         } catch (Exception e) {

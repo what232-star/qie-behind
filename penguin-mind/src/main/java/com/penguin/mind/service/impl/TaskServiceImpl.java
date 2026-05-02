@@ -270,15 +270,16 @@ public class TaskServiceImpl implements ITaskService {
         ;
     }
 
+
     /**
-     * 删除指定时间前已完成的工单
+     * 删除指定时间前已完成或已取消的工单
      * 
      * @param expireTime 过期时间
-     * @param taskStatus 工单状态
+     * @param taskStatuses 工单状态列表（完成、取消）
      * @return 删除的记录数
      */
     @Override
-    public int deleteCompletedTasksByTime(Date expireTime, Long taskStatus) {
-        return taskMapper.deleteCompletedTasksByTime(expireTime, taskStatus);
+    public int deleteCompletedOrCancelledTasks(Date expireTime, List<Long> taskStatuses) {
+        return taskMapper.deleteCompletedOrCancelledTasks(expireTime, taskStatuses);
     }
 }

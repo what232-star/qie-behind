@@ -31,12 +31,12 @@ public class Order extends BaseEntity
     /** 货道编号 */
     private String channelCode;
 
-    /** skuId */
-    private Long skuId;
+    /** penguinId */
+    private Long penguinId;
 
     /** 商品名称 */
     @Excel(name = "商品名称")
-    private String skuName;
+    private String penguinName;
 
     /** 商品类别Id */
     private Long classId;
@@ -133,23 +133,23 @@ public class Order extends BaseEntity
     {
         return channelCode;
     }
-    public void setSkuId(Long skuId) 
+    public void setpenguinId(Long penguinId) 
     {
-        this.skuId = skuId;
+        this.penguinId = penguinId;
     }
 
-    public Long getSkuId() 
+    public Long getpenguinId() 
     {
-        return skuId;
+        return penguinId;
     }
-    public void setSkuName(String skuName) 
+    public void setpenguinName(String penguinName) 
     {
-        this.skuName = skuName;
+        this.penguinName = penguinName;
     }
 
-    public String getSkuName() 
+    public String getpenguinName() 
     {
-        return skuName;
+        return penguinName;
     }
     public void setClassId(Long classId) 
     {
@@ -304,8 +304,8 @@ public class Order extends BaseEntity
             .append("thirdNo", getThirdNo())
             .append("innerCode", getInnerCode())
             .append("channelCode", getChannelCode())
-            .append("skuId", getSkuId())
-            .append("skuName", getSkuName())
+            .append("penguinId", getpenguinId())
+            .append("penguinName", getpenguinName())
             .append("classId", getClassId())
             .append("status", getStatus())
             .append("amount", getAmount())

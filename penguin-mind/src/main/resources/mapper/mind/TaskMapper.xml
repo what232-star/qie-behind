@@ -155,9 +155,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </delete>
 
-    <delete id="deleteCompletedTasksByTime">
+    <delete id="deleteCompletedOrCancelledTasks">
         delete from tb_task
-        where task_status = #{taskStatus}
+        where task_status in
+        <foreach item="status" collection="taskStatuses" open="(" separator="," close=")">
+            #{status}
+        </foreach>
         and update_time &lt; #{expireTime}
     </delete>
 </mapper>
