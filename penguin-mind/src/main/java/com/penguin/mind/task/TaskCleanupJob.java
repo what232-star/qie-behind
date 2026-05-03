@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import com.penguin.common.constant.PenguinConstants;
 import com.penguin.mind.service.ITaskService;
 
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Arrays;
@@ -25,6 +26,12 @@ public class TaskCleanupJob {
 
     @Autowired
     private ITaskService taskService;
+
+    /**
+     * 应用启动时自动执行一次清理
+     * 适合本地开发环境，无需等待定时任务
+     */
+
 
     /**
      * 清理24小时前已完成或已取消的工单

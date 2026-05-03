@@ -1,5 +1,6 @@
 package com.penguin.mind.service;
 
+import java.util.Date;
 import java.util.List;
 import com.penguin.mind.domain.Order;
 
@@ -58,4 +59,12 @@ public interface IOrderService
      * @return 结果
      */
     public int deleteOrderById(Long id);
+
+    /**
+     * 删除指定时间前待支付的订单
+     * 
+     * @param expireTime 过期时间
+     * @return 删除的记录数
+     */
+    public int deletePendingOrders(Date expireTime);
 }

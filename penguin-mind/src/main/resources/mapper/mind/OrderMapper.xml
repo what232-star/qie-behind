@@ -153,4 +153,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
+
+    <delete id="deletePendingOrders">
+        delete from tb_order
+        where status = 0
+        and create_time &lt; #{expireTime}
+    </delete>
 </mapper>

@@ -49,8 +49,14 @@ public class Order extends BaseEntity
     @Excel(name = "支付金额")
     private Long amount;
 
-    /** 商品金额 */
+    /** 支付金额（元，用于显示） */
+    private java.math.BigDecimal amountYuan;
+
+    /** 商品金额（分） */
     private Long price;
+
+    /** 商品金额（元，用于显示） */
+    private java.math.BigDecimal priceYuan;
 
     /** 支付类型，1支付宝 2微信 */
     private String payType;
@@ -133,21 +139,21 @@ public class Order extends BaseEntity
     {
         return channelCode;
     }
-    public void setpenguinId(Long penguinId) 
+    public void setPenguinId(Long penguinId) 
     {
         this.penguinId = penguinId;
     }
 
-    public Long getpenguinId() 
+    public Long getPenguinId() 
     {
         return penguinId;
     }
-    public void setpenguinName(String penguinName) 
+    public void setPenguinName(String penguinName) 
     {
         this.penguinName = penguinName;
     }
 
-    public String getpenguinName() 
+    public String getPenguinName() 
     {
         return penguinName;
     }
@@ -178,7 +184,7 @@ public class Order extends BaseEntity
     {
         return amount;
     }
-    public void setPrice(Long price) 
+    public void setPrice(Long price)
     {
         this.price = price;
     }
@@ -187,7 +193,7 @@ public class Order extends BaseEntity
     {
         return price;
     }
-    public void setPayType(String payType) 
+    public void setPayType(String payType)
     {
         this.payType = payType;
     }
@@ -304,8 +310,8 @@ public class Order extends BaseEntity
             .append("thirdNo", getThirdNo())
             .append("innerCode", getInnerCode())
             .append("channelCode", getChannelCode())
-            .append("penguinId", getpenguinId())
-            .append("penguinName", getpenguinName())
+            .append("penguinId", getPenguinId())
+            .append("penguinName", getPenguinName())
             .append("classId", getClassId())
             .append("status", getStatus())
             .append("amount", getAmount())

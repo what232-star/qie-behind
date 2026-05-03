@@ -1,5 +1,6 @@
 package com.penguin.mind.service.impl;
 
+import java.util.Date;
 import java.util.List;
 import com.penguin.common.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,10 @@ import org.springframework.stereotype.Service;
 import com.penguin.mind.mapper.OrderMapper;
 import com.penguin.mind.domain.Order;
 import com.penguin.mind.service.IOrderService;
+import com.penguin.mind.domain.VendingMachine;
+import com.penguin.mind.domain.Policy;
+import com.penguin.mind.service.IVendingMachineService;
+import com.penguin.mind.service.IPolicyService;
 
 /**
  * 订单管理Service业务层处理
@@ -19,6 +24,12 @@ public class OrderServiceImpl implements IOrderService
 {
     @Autowired
     private OrderMapper orderMapper;
+
+    @Autowired
+    private IVendingMachineService vendingMachineService;
+
+    @Autowired
+    private IPolicyService policyService;
 
     /**
      * 查询订单管理
@@ -46,7 +57,7 @@ public class OrderServiceImpl implements IOrderService
 
     /**
      * 新增订单管理
-     * 
+     *
      * @param order 订单管理
      * @return 结果
      */
@@ -92,5 +103,17 @@ public class OrderServiceImpl implements IOrderService
     public int deleteOrderById(Long id)
     {
         return orderMapper.deleteOrderById(id);
+    }
+
+    /**
+     * 删除指定时间前待支付的订单
+     * 
+     * @param expireTime 过期时间
+     * @return 删除的记录数
+     */
+    @Override
+    public int deletePendingOrders(Date expireTime)
+    {
+        return orderMapper.deletePendingOrders(expireTime);
     }
 }
