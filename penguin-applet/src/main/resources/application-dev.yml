@@ -1,0 +1,27 @@
+penguin:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    host: localhost
+    port: 3306
+    database: ry-vue
+    username: root
+    password: 123456
+  redis:
+    host: localhost
+    port: 6379
+    password: root
+
+elegent:
+  pay:
+    wxpay:
+      mchId: 1561414331
+      appId: wx6592a2db3f85ed25
+      appSecret: d9a9ff00a633cd7353a8925119063b01
+      mchSerialNo: 25FBDE3EFD31B03A4377EB9A4A47C517969E6620
+      apiV3Key: CZBK51236435wxpay435434323FFDuv3
+    alipay:
+      appId: 2021003141676135
+  callback:
+    domain: https://2d3ac179.r5.cpolar.top
+    watch: true
+    cycle: 10

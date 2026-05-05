@@ -1,0 +1,31 @@
+server:
+  port: 9008
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+    druid:
+      driver-class-name: ${penguin.datasource.driver-class-name}
+      url: jdbc:mysql://${penguin.datasource.host}:${penguin.datasource.port}/${penguin.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${penguin.datasource.username}
+      password: ${penguin.datasource.password}
+  redis:
+    host: ${penguin.redis.host}
+    port: ${penguin.redis.port}
+    # password: ${penguin.redis.password}
+  cache:
+    type: redis
+
+mybatis-plus:
+  type-aliases-package: com.penguin.applet.domain
+  configuration:
+    # 开启驼峰命名规则映射  表 user_name  -> 实体类 userName
+    map-underscore-to-camel-case: true
+    # 控制台打印SQL日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
