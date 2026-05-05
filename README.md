@@ -9,7 +9,7 @@
 
 > 本项目为个人全栈开发项目，面向 Java 后端开发求职场景打造，完整复现了企业级项目的开发规范、架构设计与工程化实践，适配暑期实习校招的能力展示需求。
 >
-> 配套前端仓库：[帝可得 - 前端项目](https://github.com/what232-star/qie-front)
+> 配套前端仓库：[企鹅Penguin - 前端项目](https://github.com/what232-star/qie-front)
 
 ## 项目核心亮点（求职加分项）
 1.  **规范的企业级分层架构**：采用 Controller → Service → Mapper 经典三层架构，职责边界清晰，代码可维护性、可扩展性强
