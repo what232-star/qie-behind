@@ -7,8 +7,8 @@
 ## 项目简介
 本项目是**企鹅盲盒智能售货机全链路管理系统的后端服务**，基于 SpringBoot 2.x 构建，采用企业级分层架构设计，为前端提供标准化 RESTful API，实现了用户权限管理、商品全生命周期管理、订单交易处理、库存智能预警、AI 智能客服等核心业务能力。
 
+> 新增配套模块：包含 **penguin-applet（屏幕端后端服务）** 和 **penguin-app（手机安卓端后端服务）**，实现售货机屏幕交互、移动端运维管理的完整业务闭环。
 > 本项目为个人全栈开发项目，面向 Java 后端开发求职场景打造，完整复现了企业级项目的开发规范、架构设计与工程化实践，适配暑期实习校招的能力展示需求。
->
 > 配套前端仓库：[企鹅Penguin - 前端项目](https://github.com/what232-star/qie-front)
 
 ## 项目核心亮点（求职加分项）
@@ -39,6 +39,8 @@
 | 订单管理模块 | 订单创建、支付状态流转、订单详情查询、订单历史记录；订单超时自动取消、交易数据统计 |
 | 库存预警模块 | 基于 Spring Task 实现定时任务，实时监控商品库存，低于预设阈值自动触发预警通知 |
 | AI 智能客服模块 | 对接通义千问大模型 API，实现智能问答、常见问题自动回复、用户问题分类处理 |
+| **屏幕端管理模块（新增）** | 售货机屏幕端的商品展示、广告投放、订单支付回调、设备状态心跳上报 |
+| **手机端管理模块（新增）** | 移动端运维人员的设备巡检、库存盘点、故障报修、订单查询、数据统计 |
 | 系统通用模块 | 统一响应结果封装、全局异常拦截、跨域配置、参数校验、操作日志记录 |
 
 ## 项目架构
@@ -93,29 +95,14 @@ cp src/main/resources/application-example.yml src/main/resources/application.yml
 项目启动后，访问接口文档地址：http://localhost:8081/api/doc.html
 可在线查看所有接口定义、调试接口
 
-项目结构
-qie-behind
-├── src/main/java/com/mind
-│   ├── controller          # 控制层
-│   │   ├── ManyController.java
-│   │   ├── OrderController.java
-│   │   └── AiController.java
-│   ├── service             # 服务层接口
-│   │   └── impl            # 服务层实现
-│   ├── mapper              # 数据访问层
-│   ├── entity              # 数据库实体
-│   ├── dto                 # 数据传输对象
-│   ├── vo                  # 视图对象
-│   ├── config              # 配置类
-│   ├── common              # 通用模块
-│   └── PenguinApplication.java # 项目启动类
-├── src/main/resources
-│   ├── mapper              # MyBatis XML映射文件
-│   └── application.yml     # 本地配置文件（不提交到Git）
-├── sql                     # 数据库脚本
-├── .gitignore              # Git忽略文件
-├── pom.xml                 # Maven依赖配置
-└── README.md
+## 项目结构
+
+├── penguin-admin # 管理端后端服务（原有核心模块）
+├── penguin-app # 手机安卓端后端服务（新增）
+├── penguin-applet # 屏幕端后端服务（新增）
+├── penguin-common # 公共模块（通用工具、常量、异常、实体）
+├── penguin-framework # 框架层（配置类、拦截器、过滤器）
+└── penguin-generator # 代码生成器
 
 配套仓库
 前端项目仓库：https://github.com/what232-star/qie-front
