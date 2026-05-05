@@ -2,114 +2,132 @@
 	<img alt="logo" src="https://oscimg.oschina.net/oscnet/up-d3d0a9303e11d522a06cd263f3079027715.png">
 </p>
 <h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">RuoYi v3.9.2</h1>
-<h4 align="center">基于SpringBoot+Vue前后端分离的Java快速开发框架</h4>
-<p align="center">
-	<a href="https://gitee.com/y_project/RuoYi-Vue/stargazers"><img src="https://gitee.com/y_project/RuoYi-Vue/badge/star.svg?theme=dark"></a>
-	<a href="https://gitee.com/y_project/RuoYi-Vue"><img src="https://img.shields.io/badge/RuoYi-v3.9.2-brightgreen.svg"></a>
-	<a href="https://gitee.com/y_project/RuoYi-Vue/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg"></a>
-</p>
+<h4 align="center">企鹅盲盒智能售货机全链路管理系统</h4>
 
-## 平台简介
+## 项目简介
+本项目是**企鹅盲盒智能售货机全链路管理系统的后端服务**，基于 SpringBoot 2.x 构建，采用企业级分层架构设计，为前端提供标准化 RESTful API，实现了用户权限管理、商品全生命周期管理、订单交易处理、库存智能预警、AI 智能客服等核心业务能力。
 
-若依是一套全部开源的快速开发平台，毫无保留给个人及企业免费使用。
+> 本项目为个人全栈开发项目，面向 Java 后端开发求职场景打造，完整复现了企业级项目的开发规范、架构设计与工程化实践，适配暑期实习校招的能力展示需求。
+>
+> 配套前端仓库：[帝可得 - 前端项目](https://github.com/what232-star/qie-front)
 
-* 前端采用Vue、Element UI。
-* 后端采用Spring Boot、Spring Security、Redis & Jwt。
-* 权限认证使用Jwt，支持多终端认证系统。
-* 支持加载动态权限菜单，多方式轻松权限控制。
-* 高效率开发，使用代码生成器可以一键生成前后端代码。
-* 阿里云折扣场：[点我进入](http://aly.ruoyi.vip)，腾讯云秒杀场：[点我进入](http://txy.ruoyi.vip)&nbsp;&nbsp;
+## 项目核心亮点（求职加分项）
+1.  **规范的企业级分层架构**：采用 Controller → Service → Mapper 经典三层架构，职责边界清晰，代码可维护性、可扩展性强
+2.  **完整的工程化配套**：统一响应结果封装、全局异常处理、JWT 无状态身份认证、接口权限控制，符合企业开发标准
+3.  **业务场景完整**：覆盖从用户登录、商品管理、订单流转、库存监控到智能客服的完整业务闭环，贴合真实商用场景
+4.  **性能优化实践**：基于 Redis 实现热点数据缓存、接口限流，针对高频查询场景添加数据库索引，优化接口响应速度
+5.  **开发规范严谨**：遵循 Alibaba Java 开发手册，Git 提交采用 Conventional Commits 规范，敏感配置脱敏处理，无冗余代码与无效提交
 
-# 版本分支
+## 技术选型
+| 技术/框架 | 版本 | 核心用途 |
+|-----------|------|----------|
+| SpringBoot | 2.7.18 | 后端核心框架，自动配置与项目快速构建 |
+| MyBatis-Plus | 3.5.3.1 | ORM 框架，简化数据库操作，实现高效 CRUD |
+| MySQL | 8.0 | 关系型数据库，存储核心业务数据 |
+| Redis | 7.0 | 内存数据库，热点数据缓存、接口限流、分布式锁 |
+| JWT | 0.11.5 | 无状态身份认证，实现用户登录与权限控制 |
+| Spring Task | 内置 | 定时任务，实现库存自动预警、订单超时自动关闭 |
+| Hutool | 5.8.16 | Java 工具库，简化日期、加密、校验等通用操作 |
+| Knife4j | 3.0.3 | 基于 Swagger 的接口文档框架，自动生成可视化 API 文档 |
+| SLF4J + Logback | 内置 | 日志框架，实现分级日志与日志归档 |
 
-RuoYi-Vue 后端项目提供 Spring Boot 2.x / 3.x / 4.x 多版本分支的并行维护。
+## 核心功能模块
+| 模块 | 功能说明 |
+|------|----------|
+| 用户权限模块 | 实现用户注册、登录、密码加密存储、JWT 令牌签发与刷新；基于角色的权限控制（RBAC），区分管理员/普通用户权限 |
+| 商品管理模块 | 商品的新增、编辑、删除、上下架；商品分类管理、库存数量实时更新、商品图片存储管理 |
+| 订单管理模块 | 订单创建、支付状态流转、订单详情查询、订单历史记录；订单超时自动取消、交易数据统计 |
+| 库存预警模块 | 基于 Spring Task 实现定时任务，实时监控商品库存，低于预设阈值自动触发预警通知 |
+| AI 智能客服模块 | 对接通义千问大模型 API，实现智能问答、常见问题自动回复、用户问题分类处理 |
+| 系统通用模块 | 统一响应结果封装、全局异常拦截、跨域配置、参数校验、操作日志记录 |
 
-| 名称              | 说明                      | 地址                                                    |
-| :---------------- | :------------------------ | :------------------------------------------------------ |
-| master 默认分支   | Spring Boot 4.x (JDK 17+) | https://gitee.com/y_project/RuoYi-Vue                   |
-| springboot3 分支  | Spring Boot 3.x (JDK 17+) | https://gitee.com/y_project/RuoYi-Vue/tree/springboot3  |
-| springboot2 分支  | Spring Boot 2.x (JDK 8+)  | https://gitee.com/y_project/RuoYi-Vue/tree/springboot2  |  
-
-RuoYi-Vue 前端项目提供 Vue 2.x / 3.x / JavaScript TypeScript 版本均可混用搭配
-
-| 项目名称      | **RuoYi-Vue** | **RuoYi-Vue3** | **RuoYi-Vue3-TypeScript**   |
-| :---          | :---          | :---           | :---                        |
-| **前端框架**  | Vue 2        | Vue 3          | Vue 3                       |
-| **脚本语言**  | JavaScript   | JavaScript     | TypeScript                  |
-| **构建工具**  | Vue CLI      | Vite           | Vite                        |
-| **UI 组件库** | Element UI   | Element Plus   | Element Plus                |
-| **状态管理**  | Vuex         | Pinia          | Pinia                       |
-| **路由管理**  | Vue Router 3 | Vue Router 4   | Vue Router 4                |
-| **核心特点**  | 1. 技术栈经典稳定<br>2. 社区资料丰富<br>3. 当前维护重心已转移 | 1. 现代前端技术栈<br>2. 开发体验与性能更优<br>3. 官方主推的活跃版本 | 1. 类型加持，减少沟通成本<br>2. 开发时有提示，效率更高<br>3. 多人协作企业级开发项目 |
-| **仓库地址**  | [RuoYi-Vue](https://gitee.com/y_project/RuoYi-Vue) | [RuoYi-Vue3](https://gitcode.com/yangzongzhuan/RuoYi-Vue3) | [RuoYi-Vue3-TypeScript](https://gitcode.com/yangzongzhuan/RuoYi-Vue3/tree/typescript) |
-
-## 内置功能
-
-1.  用户管理：用户是系统操作者，该功能主要完成系统用户配置。
-2.  部门管理：配置系统组织机构（公司、部门、小组），树结构展现支持数据权限。
-3.  岗位管理：配置系统用户所属担任职务。
-4.  菜单管理：配置系统菜单，操作权限，按钮权限标识等。
-5.  角色管理：角色菜单权限分配、设置角色按机构进行数据范围权限划分。
-6.  字典管理：对系统中经常使用的一些较为固定的数据进行维护。
-7.  参数管理：对系统动态配置常用参数。
-8.  通知公告：系统通知公告信息发布维护。
-9.  操作日志：系统正常操作日志记录和查询；系统异常信息日志记录和查询。
-10. 登录日志：系统登录日志记录查询包含登录异常。
-11. 在线用户：当前系统中活跃用户状态监控。
-12. 定时任务：在线（添加、修改、删除)任务调度包含执行结果日志。
-13. 代码生成：前后端代码的生成（java、html、xml、sql）支持CRUD下载 。
-14. 系统接口：根据业务代码自动生成相关的api接口文档。
-15. 服务监控：监视当前系统CPU、内存、磁盘、堆栈等相关信息。
-16. 缓存监控：对系统的缓存信息查询，命令统计等。
-17. 在线构建器：拖动表单元素生成相应的HTML代码。
-18. 连接池监视：监视当前系统数据库连接池状态，可进行分析SQL找出系统性能瓶颈。
-
-## 在线体验
-
-- admin/admin123  
-- 陆陆续续收到一些打赏，为了更好的体验已用于演示服务器升级。谢谢各位小伙伴。
-
-演示地址：http://vue.ruoyi.vip  
-文档地址：http://doc.ruoyi.vip
-
-## 演示图
-
-<table>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/cd1f90be5f2684f4560c9519c0f2a232ee8.jpg"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/1cbcf0e6f257c7d3a063c0e3f2ff989e4b3.jpg"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-8074972883b5ba0622e13246738ebba237a.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-9f88719cdfca9af2e58b352a20e23d43b12.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-39bf2584ec3a529b0d5a3b70d15c9b37646.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-936ec82d1f4872e1bc980927654b6007307.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-b2d62ceb95d2dd9b3fbe157bb70d26001e9.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-d67451d308b7a79ad6819723396f7c3d77a.png"/></td>
-    </tr>	 
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/5e8c387724954459291aafd5eb52b456f53.jpg"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/644e78da53c2e92a95dfda4f76e6d117c4b.jpg"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-8370a0d02977eebf6dbf854c8450293c937.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-49003ed83f60f633e7153609a53a2b644f7.png"/></td>
-    </tr>
-	<tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-d4fe726319ece268d4746602c39cffc0621.png"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-c195234bbcd30be6927f037a6755e6ab69c.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://oscimg.oschina.net/oscnet/b6115bc8c31de52951982e509930b20684a.jpg"/></td>
-        <td><img src="https://oscimg.oschina.net/oscnet/up-5e4daac0bb59612c5038448acbcef235e3a.png"/></td>
-    </tr>
-</table>
+## 项目架构
+├── Controller 控制层：接收 HTTP 请求，参数校验，返回统一响应结果
+├── Service 服务层：核心业务逻辑实现，事务控制，调用 Mapper 层
+│ └── impl 服务实现类：业务逻辑的具体实现
+├── Mapper 数据访问层：基于 MyBatis-Plus 实现数据库交互，自定义 SQL 处理
+├── Entity 实体层：与数据库表一一对应的实体类
+├── DTO 数据传输层：前后端交互的入参 / 出参封装，隔离数据库实体
+├── VO 视图层：前端页面展示的视图对象封装
+├── Config 配置层：SpringBoot 配置类，Redis、Knife4j、跨域、拦截器等配置
+├── Common 通用模块
+│ ├── constant 常量定义
+│ ├── enums 枚举类（订单状态、响应码等）
+│ ├── exception 自定义异常与全局异常处理
+│ ├── result 统一响应结果封装
+│ └── utils 通用工具类
+└── 项目启动类
 
 
-## 若依前后端分离交流群
+## 快速开始
+### 1. 环境要求
+| 环境 | 版本要求 |
+|------|----------|
+| JDK | 1.8 及以上 |
+| Maven | 3.6.0 及以上 |
+| MySQL | 8.0 及以上 |
+| Redis | 6.0 及以上 |
 
-QQ群： [![加入QQ群](https://img.shields.io/badge/已满-937441-blue.svg)](https://jq.qq.com/?_wv=1027&k=5bVB1og) [![加入QQ群](https://img.shields.io/badge/已满-887144332-blue.svg)](https://jq.qq.com/?_wv=1027&k=5eiA4DH) [![加入QQ群](https://img.shields.io/badge/已满-180251782-blue.svg)](https://jq.qq.com/?_wv=1027&k=5AxMKlC) [![加入QQ群](https://img.shields.io/badge/已满-104180207-blue.svg)](https://jq.qq.com/?_wv=1027&k=51G72yr) [![加入QQ群](https://img.shields.io/badge/已满-186866453-blue.svg)](https://jq.qq.com/?_wv=1027&k=VvjN2nvu) [![加入QQ群](https://img.shields.io/badge/已满-201396349-blue.svg)](https://jq.qq.com/?_wv=1027&k=5vYAqA05) [![加入QQ群](https://img.shields.io/badge/已满-101456076-blue.svg)](https://jq.qq.com/?_wv=1027&k=kOIINEb5) [![加入QQ群](https://img.shields.io/badge/已满-101539465-blue.svg)](https://jq.qq.com/?_wv=1027&k=UKtX5jhs) [![加入QQ群](https://img.shields.io/badge/已满-264312783-blue.svg)](https://jq.qq.com/?_wv=1027&k=EI9an8lJ) [![加入QQ群](https://img.shields.io/badge/已满-167385320-blue.svg)](https://jq.qq.com/?_wv=1027&k=SWCtLnMz) [![加入QQ群](https://img.shields.io/badge/已满-104748341-blue.svg)](https://jq.qq.com/?_wv=1027&k=96Dkdq0k) [![加入QQ群](https://img.shields.io/badge/已满-160110482-blue.svg)](https://jq.qq.com/?_wv=1027&k=0fsNiYZt) [![加入QQ群](https://img.shields.io/badge/已满-170801498-blue.svg)](https://jq.qq.com/?_wv=1027&k=7xw4xUG1) [![加入QQ群](https://img.shields.io/badge/已满-108482800-blue.svg)](https://jq.qq.com/?_wv=1027&k=eCx8eyoJ) [![加入QQ群](https://img.shields.io/badge/已满-101046199-blue.svg)](https://jq.qq.com/?_wv=1027&k=SpyH2875) [![加入QQ群](https://img.shields.io/badge/已满-136919097-blue.svg)](https://jq.qq.com/?_wv=1027&k=tKEt51dz) [![加入QQ群](https://img.shields.io/badge/已满-143961921-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=0vBbSb0ztbBgVtn3kJS-Q4HUNYwip89G&authKey=8irq5PhutrZmWIvsUsklBxhj57l%2F1nOZqjzigkXZVoZE451GG4JHPOqW7AW6cf0T&noverify=0&group_code=143961921) [![加入QQ群](https://img.shields.io/badge/已满-174951577-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=ZFAPAbp09S2ltvwrJzp7wGlbopsc0rwi&authKey=HB2cxpxP2yspk%2Bo3WKTBfktRCccVkU26cgi5B16u0KcAYrVu7sBaE7XSEqmMdFQp&noverify=0&group_code=174951577) [![加入QQ群](https://img.shields.io/badge/已满-161281055-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=Fn2aF5IHpwsy8j6VlalNJK6qbwFLFHat&authKey=uyIT%2B97x2AXj3odyXpsSpVaPMC%2Bidw0LxG5MAtEqlrcBcWJUA%2FeS43rsF1Tg7IRJ&noverify=0&group_code=161281055) [![加入QQ群](https://img.shields.io/badge/已满-138988063-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=XIzkm_mV2xTsUtFxo63bmicYoDBA6Ifm&authKey=dDW%2F4qsmw3x9govoZY9w%2FoWAoC4wbHqGal%2BbqLzoS6VBarU8EBptIgPKN%2FviyC8j&noverify=0&group_code=138988063) [![加入QQ群](https://img.shields.io/badge/已满-151450850-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=DkugnCg68PevlycJSKSwjhFqfIgrWWwR&authKey=pR1Pa5lPIeGF%2FFtIk6d%2FGB5qFi0EdvyErtpQXULzo03zbhopBHLWcuqdpwY241R%2F&noverify=0&group_code=151450850) [![加入QQ群](https://img.shields.io/badge/已满-224622315-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=F58bgRa-Dp-rsQJThiJqIYv8t4-lWfXh&authKey=UmUs4CVG5OPA1whvsa4uSespOvyd8%2FAr9olEGaWAfdLmfKQk%2FVBp2YU3u2xXXt76&noverify=0&group_code=224622315) [![加入QQ群](https://img.shields.io/badge/已满-287842588-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=Nxb2EQ5qozWa218Wbs7zgBnjLSNk_tVT&authKey=obBKXj6SBKgrFTJZx0AqQnIYbNOvBB2kmgwWvGhzxR67RoRr84%2Bus5OadzMcdJl5&noverify=0&group_code=287842588) [![加入QQ群](https://img.shields.io/badge/已满-187944233-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=numtK1M_I4eVd2Gvg8qtbuL8JgX42qNh&authKey=giV9XWMaFZTY%2FqPlmWbkB9g3fi0Ev5CwEtT9Tgei0oUlFFCQLDp4ozWRiVIzubIm&noverify=0&group_code=187944233) [![加入QQ群](https://img.shields.io/badge/已满-228578329-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=G6r5KGCaa3pqdbUSXNIgYloyb8e0_L0D&authKey=4w8tF1eGW7%2FedWn%2FHAypQksdrML%2BDHolQSx7094Agm7Luakj9EbfPnSTxSi2T1LQ&noverify=0&group_code=228578329) [![加入QQ群](https://img.shields.io/badge/已满-191164766-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=GsOo-OLz53J8y_9TPoO6XXSGNRTgbFxA&authKey=R7Uy%2Feq%2BZsoKNqHvRKhiXpypW7DAogoWapOawUGHokJSBIBIre2%2FoiAZeZBSLuBc&noverify=0&group_code=191164766) [![加入QQ群](https://img.shields.io/badge/已满-174569686-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=PmYavuzsOthVqfdAPbo4uAeIbu7Ttjgc&authKey=p52l8%2FXa4PS1JcEmS3VccKSwOPJUZ1ZfQ69MEKzbrooNUljRtlKjvsXf04bxNp3G&noverify=0&group_code=174569686) [![加入QQ群](https://img.shields.io/badge/127358632-blue.svg)](http://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=M9y5NjAl44lAL_Vh2crmEehZU_PMU6KS&authKey=ZSDz8hEREWSaPuxQV3gEwqGIaGjfRNnkB4rJjf0IvXhrSUGSGwQFmBA%2Boe8HFxyl&noverify=0&group_code=127358632) 点击按钮入群。
+### 2. 克隆项目
+```bash
+git clone git@github.com:what232-star/qie-behind.git
+cd qie-behind
+
+### 3. 数据库配置
+创建数据库
+/1.sql
+CREATE DATABASE ry-vue CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+/2. 导入项目中的 sql/quartz.sql 及 ry_20260320.sql数据库脚本，完成表结构与基础数据初始化
+
+4. 项目配置
+/1复制配置示例文件，生成本地配置
+cp src/main/resources/application-example.yml src/main/resources/application.yml
+/2.修改 application.yml，填入你的本地环境配置
+
+5. 启动项目
+
+/1 Maven 安装依赖    mvn clean install -Dmaven.test.skip=true
+/2 启动项目 mvn spring-boot:run
+/3 验证启动成功
+项目启动后，访问接口文档地址：http://localhost:8081/api/doc.html
+可在线查看所有接口定义、调试接口
+
+项目结构
+qie-behind
+├── src/main/java/com/mind
+│   ├── controller          # 控制层
+│   │   ├── ManyController.java
+│   │   ├── OrderController.java
+│   │   └── AiController.java
+│   ├── service             # 服务层接口
+│   │   └── impl            # 服务层实现
+│   ├── mapper              # 数据访问层
+│   ├── entity              # 数据库实体
+│   ├── dto                 # 数据传输对象
+│   ├── vo                  # 视图对象
+│   ├── config              # 配置类
+│   ├── common              # 通用模块
+│   └── PenguinApplication.java # 项目启动类
+├── src/main/resources
+│   ├── mapper              # MyBatis XML映射文件
+│   └── application.yml     # 本地配置文件（不提交到Git）
+├── sql                     # 数据库脚本
+├── .gitignore              # Git忽略文件
+├── pom.xml                 # Maven依赖配置
+└── README.md
+
+配套仓库
+前端项目仓库：https://github.com/what232-star/qie-front
+后端项目仓库：https://github.com/what232-star/qie-behind
+
+关于作者
+GitHub：@what232-star
+邮箱：13560250826@163.com
+求职意向：Java 后端开发 / 全栈开发 暑期实习
+
+
+
+
+
+
