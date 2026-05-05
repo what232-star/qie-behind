@@ -1,7 +1,7 @@
 <p align="center">
-	<img alt="logo" src="https://oscimg.oschina.net/oscnet/up-d3d0a9303e11d522a06cd263f3079027715.png">
+	<img src="penguin-mind/src/img/1.png">
 </p>
-<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">RuoYi v3.9.2</h1>
+<h1 align="center" style="margin: 30px 0 30px; font-weight: bold;">企鹅！！！！！</h1>
 <h4 align="center">企鹅盲盒智能售货机全链路管理系统</h4>
 
 ## 项目简介
